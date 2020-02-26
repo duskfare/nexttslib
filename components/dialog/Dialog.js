@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import { CloseIcon } from '../icons/index';
-import DialogActionsButton from '../../next_lib/components/dialog/Dialog'
+import DialogActionsButton from '../../components/dialog/Dialog'
 import { Button, CloseButton } from '../button/index';
 
 const DialogTitle = props => {
