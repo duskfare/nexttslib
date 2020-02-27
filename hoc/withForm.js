@@ -1,43 +1,48 @@
 import * as React from 'react';
-export default function withForm(Component) {
+/**
+ * 
+ * @param {*} Component 
+ * @param {WithFormOptions} [options] 
+ */
+export default function withForm(Component, options = {}) {
     /**
      * @extends {React.Component<{onFormDataChanged?: function}, {}>}
      */
     class WrapperComponent extends React.Component {
         constructor(props) {
             super(props);
+            let keys = (options && options.validations) ? Object.keys(options.validations): []
             this.state = {
-                fields: {},
-                formData: {}
+                formData: keys.reduce((state, key) => {
+                    state[key] = null; //Init form data with null values
+                    return state;
+                }, {}),
+                errors: {}
             }
         }
         async setFieldValue(field_name, field_value) {
-            let { fields, formData } = this.state;
+            let { formData, errors } = this.state;
             let { onFormDataChanged = () => {}} = this.props;
-            //Update field values
-            let field = fields[field_name] || { value: null, error: null };
-            field.value = field_value;
-            fields[field_name] = field;
+            let { validations } = options;
             //Update form data
             formData[field_name] = field_value;
+            //Update field errors
+            if(validations) {
+                let validate = validations[field_name];
+                errors[field_name] = validate(formData, field_value);
+            }
             await new Promise((resolve, reject) => {
                 this.setState({
-                    fields, formData
+                    errors,
+                    formData
                 }, () => resolve())
             });
             await onFormDataChanged(formData);
         }
         async loadFormData(formData) {
             formData = formData || {};
-            let fields = {};
-            for(let key in formData) {
-                let val = formData[key];
-                let field = fields[key] || {};
-                field.value = val;
-                fields[key] = field;
-            }
             await new Promise((resolve, reject) => {
-                this.setState({ fields, formData }, () => resolve());
+                this.setState({ formData }, () => resolve());
             });
         }
 
@@ -46,13 +51,39 @@ export default function withForm(Component) {
                 await this.setFieldValue(field_name, value);
             }
         }
+        /**
+         * Validate all selected fields and update errors
+         * @param {string[]?} fields 
+         */
+        async validate(fields) {
+            let errors = {};
+            let formData = this.state.formData;
+            if(!fields && options && options.validations) {
+                fields = Object.keys(options.validations);  //Validate all fields by default unless otherwise specified
+            }
+            let validations = options.validations;
+            if(validations) {
+                for(let key of fields) {
+                    let validate = validations[key];
+                    if(validate) {
+                        errors[key] = validate(formData, formData[key]);
+                    }
+                }
+            }
+            await new Promise((resolve, reject) => {
+                this.setState({ errors }, () => resolve());
+            });
+            return (Object.keys(errors).filter(key => errors[key]).length === 0);
+        }
         render() {
             return (<Component
                 {...this.props}
                 form={{
                     handleChange: this.handleChange.bind(this),
+                    loadFormData: this.loadFormData.bind(this),
+                    validate: this.validate.bind(this),
                     formData: this.state.formData,
-                    loadFormData: this.loadFormData.bind(this)
+                    errors: this.state.errors,
                 }}
             />)
         }
@@ -63,4 +94,11 @@ export default function withForm(Component) {
  * @typedef Field
  * @property {string} console.error
  *
+ */
+/**
+ * @typedef WithFormOptions
+ * @property {Object<string, FieldValidation>} [validations]
+ */
+/**
+ * @typedef {function(Object<string, any>, any): string} FieldValidation
  */
