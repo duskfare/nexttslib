@@ -3,6 +3,7 @@ import QueryString from 'query-string';
 import arrayMove from 'array-move';
 const COOKIE_KEY_ACCESS_TOKEN = 'access-token';
 /**
+ * Set the value of a cookie
  * @param {string} name 
  * @param {*} value 
  * @param {{ expires?: Date }} options 
@@ -17,13 +18,47 @@ export function setCookie(name, value, options = {}) {
 }
 
 export function getCookie(name) {
-    let cookies = new UniversalCookie;
+    let cookies = new UniversalCookie();
     return cookies.get(name);
 }
 
 export function deleteCookie(name) {
-    let cookies = new UniversalCookie;
+    let cookies = new UniversalCookie();
     cookies.remove(name);
+}
+/**
+ * Set the value of an item in local storage
+ * @param {string} key 
+ * @param {*} value 
+ */
+export function setLocalStorageItem(key, value) {
+    if(typeof window !== undefined) {
+        let item = {
+            timeModified: new Date(),
+            value
+        };
+        window.localStorage.setItem(key, JSON.stringify(item));
+    }
+}
+/**
+ * Get teh value of an item in local storage
+ * @param {string} key 
+ */
+export function getLocalStorageItem(key) {
+    const funcName = 'getLocalStorageItem';
+    let val = null;
+    if(typeof window !== undefined) {
+        try {
+            let item = window.localStorage.getItem(key);
+            let data = JSON.parse(item);
+            let { value } = data;
+            val = value;
+        }
+        catch(err) {
+            console.error(`${funcName}: ${err.message}`);
+        }
+    }
+    return val;
 }
 /**
  * Get window.location.search parsed as an object
