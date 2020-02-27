@@ -9,6 +9,11 @@ import MUIFormHelperText from '@material-ui/core/FormHelperText';
 export default function SelectField(props) {
     let { label, value = '', errorText, options = [] } = props;
     let error = errorText ? true : false;
+    //If the value is an actual value, and not contained in the options, set the value to empty
+    if(value !== null && value !== undefined && value !== '' && !(options.map(option => option.value).includes(value))) {
+        value = '';
+        props.onChange(value);
+    }
     let default_styles = getDefaultStyles();
     return <MUIFormControl fullWidth={true} style={props.style ? { ...default_styles, ...props.style } : default_styles} error={error}>
         <MUIInputLabel>{label}</MUIInputLabel>

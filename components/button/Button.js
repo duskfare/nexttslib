@@ -1,23 +1,49 @@
 import * as React from 'react';
 import MUIButton from '@material-ui/core/Button';
 /**
- * @param {ButtonProps} props 
+ * @extends {React.Component<ButtonProps>}
  */
-export function Button(props) {
-    let defaults = getDefaultProps();
-    return (
-        <MUIButton
+export class Button extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isDisabled: false
+        }
+    }
+    async disableOnClick() {
+        await new Promise((resolve, reject) => {
+            this.setState({ isDisabled: true }, () => resolve());
+        });
+    }
+    async enableOnClick() {
+        await new Promise((resolve, reject) => {
+            this.setState({ isDisabled: false }, () => resolve());
+        });
+    }
+    render() {
+        let props = this.props;
+        let { isDisabled } = this.state;
+        let defaults = getDefaultProps();
+        return (<MUIButton
+            disabled={isDisabled}
             variant={props.variant || 'contained'}
             color={props.color || defaults.color}
-            onClick={props.onClick || defaults.onClick}
+            onClick={async (...p) => {
+                if(!isDisabled) {
+                    await this.disableOnClick();
+                    let onClick = props.onClick || defaults.onClick;
+                    await onClick(...p);
+                    await this.enableOnClick();
+                }
+            }}
             type={props.type || null}
             disableElevation={props.disableElevation || false}
             className={props.className || ''}
             style={props.style || {}}
         >
             <InnerButtonContent innerIcon={props.innerIcon} label={props.label} />
-        </MUIButton>
-    )
+        </MUIButton>);
+    }
 }
 /**
  * Display the inner content of the button
