@@ -2,9 +2,18 @@ import UniversalCookie from 'universal-cookie';
 import QueryString from 'query-string';
 import arrayMove from 'array-move';
 const COOKIE_KEY_ACCESS_TOKEN = 'access-token';
-export function setCookie(name, value) {
+/**
+ * @param {string} name 
+ * @param {*} value 
+ * @param {{ expires?: Date }} options 
+ */
+export function setCookie(name, value, options = {}) {
     let cookies = new UniversalCookie();
-    cookies.set(name, value);
+    if(!options.expires) {
+        let expiresAt = (new Date()).getTime() + 10 * 1000 * 60 * 60 * 24 * 365; //Default to cookies that last 10 years when expiry is not set
+        options.expires = new Date(expiresAt);
+    }
+    cookies.set(name, value, { expires: options.expires });
 }
 
 export function getCookie(name) {
