@@ -6,19 +6,30 @@ import MUIButton from '@material-ui/core/Button';
 export class Button extends React.Component {
     constructor(props) {
         super(props);
+        this._mounted = false;
         this.state = {
             isDisabled: false
         }
     }
+    async componentDidMount() {
+        this._mounted = true;
+    }
+    componentWillUnmount() {
+        this._mounted = false;
+    }
     async disableOnClick() {
-        await new Promise((resolve, reject) => {
-            this.setState({ isDisabled: true }, () => resolve());
-        });
+        if(this._mounted) {
+            await new Promise((resolve, reject) => {
+                this.setState({ isDisabled: true }, () => resolve());
+            });
+        }
     }
     async enableOnClick() {
-        await new Promise((resolve, reject) => {
-            this.setState({ isDisabled: false }, () => resolve());
-        });
+        if(this._mounted) {
+            await new Promise((resolve, reject) => {
+                this.setState({ isDisabled: false }, () => resolve());
+            });
+        }
     }
     render() {
         let props = this.props;
