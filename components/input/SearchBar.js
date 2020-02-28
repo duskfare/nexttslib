@@ -7,7 +7,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import DirectionsIcon from '@material-ui/icons/Directions';
-import * as styles from '../../styles';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -15,8 +14,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         width: '100%',
-        height: '40px',
-        backgroundColor: styles.COLORS.DARKER
+        height: '40px'
     },
     input: {
         marginLeft: theme.spacing(1),
