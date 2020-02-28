@@ -29,7 +29,9 @@ export default function withForm(Component, options = {}) {
             //Update field errors
             if(validations) {
                 let validate = validations[field_name];
-                errors[field_name] = validate(formData, field_value);
+                if(validate) {
+                    errors[field_name] = validate(formData, field_value);
+                }
             }
             await new Promise((resolve, reject) => {
                 this.setState({
@@ -68,7 +70,6 @@ export default function withForm(Component, options = {}) {
                     if(validate) {
                         let error = validate(formData, formData[key]);
                         errors[key] = error;
-                        console.log({ error, key });
                     }
                 }
             }
