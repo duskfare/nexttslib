@@ -4,7 +4,7 @@ import * as _api from './api';
 export const general = _general;
 export const ui = _ui;
 export const api = _api;
-const helpers ={
+const helpers = {
     general,
     ui,
     api
