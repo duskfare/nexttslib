@@ -6,7 +6,7 @@ import * as React from 'react';
  */
 export default function withForm(Component, options = {}) {
     /**
-     * @extends {React.Component<{onFormDataChanged?: function}, {}>}
+     * @extends {React.Component<{onFormDataChanged?: function, onRef?: function}, {}>}
      */
     class WrapperComponent extends React.Component {
         constructor(props) {
@@ -19,6 +19,10 @@ export default function withForm(Component, options = {}) {
                 }, {}),
                 errors: {}
             }
+        }
+        componentDidMount() {
+            let onRef = this.props.onRef || (() => {});
+            onRef(this);
         }
         async setFieldValue(field_name, field_value) {
             let { formData, errors } = this.state;
