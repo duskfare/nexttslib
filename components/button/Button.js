@@ -41,7 +41,7 @@ export class Button extends React.Component {
             color={props.color || defaults.color}
             onClick={async (...p) => {
                 if(!isDisabled) {
-                    await this.disableOnClick();
+                    this.disableOnClick(); //We do not await this, as the other elements who are calling prevent default on the onclick props need to call preventDefault without awaiting
                     let onClick = props.onClick || defaults.onClick;
                     await onClick(...p);
                     await this.enableOnClick();

@@ -31,7 +31,7 @@ export default class TextField extends React.Component {
             value: propValue, errorText = '',
             autocomplete, multiline, rows } = props;
         let { value: stateValue } = this.state;
-        let value = this.isPropsValueUsed() ? propValue : stateValue;
+        let value = (this.isPropsValueUsed() ? propValue : stateValue) || '';
         let error = errorText ? true : false;
         let default_styles = getDefaultStyles();
         
@@ -64,7 +64,7 @@ function getDefaultStyles() {
  * @typedef TextFieldProps
  * @property {string} label
  * @property {*} onChange
- * @property {*} value
+ * @property {*} [value]
  * @property {string} [type]
  * @property {string} [errorText]
  * @property {HTMLAutocompleteTypes} [autocomplete]
