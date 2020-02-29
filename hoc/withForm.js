@@ -78,6 +78,22 @@ export default function withForm(Component, options = {}) {
             });
             return (Object.keys(errors).filter(key => errors[key]).length === 0);
         }
+        getFields() {
+            let formData = this.state.formData;
+            let errors = this.state.errors;
+            let fields = {};
+            for(let key in formData) {
+                let field = fields[key] || {};
+                field.value = formData[key];
+                fields[key] = field;
+            }
+            for(let key in errors) {
+                let field = fields[key] || {};
+                field.errorText = errors[key];
+                fields[key] = field;
+            }
+            return fields;
+        }
         render() {
             return (<Component
                 {...this.props}
@@ -87,6 +103,7 @@ export default function withForm(Component, options = {}) {
                     validate: this.validate.bind(this),
                     formData: this.state.formData,
                     errors: this.state.errors,
+                    fields: this.getFields()
                 }}
             />)
         }
