@@ -78,17 +78,22 @@ export default function withForm(Component, options = {}) {
             });
             return (Object.keys(errors).filter(key => errors[key]).length === 0);
         }
+        /**
+         * Aggregate form data on field level
+         * @returns {Object<string, Field>}
+         */
         getFields() {
             let formData = this.state.formData;
             let errors = this.state.errors;
+            /** @type {Object<string, Field>} */
             let fields = {};
             for(let key in formData) {
-                let field = fields[key] || {};
+                let field = fields[key] || { value: null };
                 field.value = formData[key];
                 fields[key] = field;
             }
             for(let key in errors) {
-                let field = fields[key] || {};
+                let field = fields[key] || { value: null };
                 field.errorText = errors[key];
                 fields[key] = field;
             }
@@ -112,7 +117,8 @@ export default function withForm(Component, options = {}) {
 }
 /**
  * @typedef Field
- * @property {string} console.error
+ * @property {*} value
+ * @property {string} [errorText]
  *
  */
 /**
