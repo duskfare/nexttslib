@@ -38,7 +38,7 @@ const DialogActions = withStyles(theme => ({
 /** @type {Object<string, React.CSSProperties>} */
 const styles = {
     dialogPaper: {
-        maxHeight: '60vh',
+        maxHeight: '80vh',
         minWidth: '70vw',
         maxWidth: '70vw',
     },
@@ -62,7 +62,7 @@ class Dialog extends React.Component {
                 <DialogTitle id="customized-dialog-title" onClose={onClose}>
                     {title}
                 </DialogTitle>
-                <div style={{ flexGrow: 1, padding: '0px 30px 0px 30px', overflow: 'scroll' }}>
+                <div style={{ flexGrow: 1, padding: '0px 30px 0px 30px', overflow: 'auto' }}>
                     {this.props.children}
                 </div>
             </DialogContainer>
