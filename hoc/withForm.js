@@ -72,7 +72,7 @@ export default function withForm(Component, options = {}) {
                 for(let key of fields) {
                     let validate = validations[key];
                     if(validate) {
-                        let error = validate(formData, formData[key]);
+                        let error = validate(this, formData[key]);
                         errors[key] = error;
                     }
                 }
