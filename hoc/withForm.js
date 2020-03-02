@@ -22,7 +22,7 @@ export default function withForm(Component, options = {}) {
         }
         componentDidMount() {
             let onRef = this.props.onRef || (() => {});
-            onRef(this);
+            onRef(this.child);
         }
         async setFieldValue(field_name, field_value) {
             let { formData, errors } = this.state;
@@ -106,6 +106,7 @@ export default function withForm(Component, options = {}) {
         render() {
             return (<Component
                 {...this.props}
+                onRef={(child) => this.child = child}
                 form={{
                     handleChange: this.handleChange.bind(this),
                     loadFormData: this.loadFormData.bind(this),
