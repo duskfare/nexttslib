@@ -9,6 +9,7 @@ import * as React from 'react';
 import { CloseIcon } from '../icons/index';
 import DialogActionsButton from '../../components/dialog/Dialog'
 import { Button, CloseButton } from '../button/index';
+import { externalClasses } from '../../theme/override';
 
 const DialogTitle = props => {
     const { children, classes, onClose, ...other } = props;
@@ -48,7 +49,7 @@ const styles = {
  * @param {{open: boolean}} props 
  */
 let DialogContainer = (props => (
-    <MUIDialog {...props} classes={{ paper: props.classes.dialogPaper }}></MUIDialog>
+    <MUIDialog {...props} classes={{ paper: `${props.classes.dialogPaper} ${externalClasses.mui.dialogPaper}` }}></MUIDialog>
 ));
 DialogContainer = withStyles(styles)(DialogContainer);
 /**
