@@ -42,8 +42,13 @@ export class Button extends React.Component {
             onClick={async (...p) => {
                 if(!isDisabled) {
                     this.disableOnClick(); //We do not await this, as the other elements who are calling prevent default on the onclick props need to call preventDefault without awaiting
-                    let onClick = props.onClick || defaults.onClick;
-                    await onClick(...p);
+                    try {
+                        let onClick = props.onClick || defaults.onClick;
+                        await onClick(...p);
+                    }
+                    catch(err) {
+                        console.error(err);
+                    }
                     await this.enableOnClick();
                 }
             }}
