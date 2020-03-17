@@ -28,7 +28,7 @@ export class TabController extends React.Component {
                 {tab_heads}
             </div>
             <div
-                className="w-100 flex-grow"
+                className="w-100"
                 style={{ backgroundColor: '#363A43', flex: '1', margin: 'auto' }}>
                 <div className="h-100" style={{ display: 'flex' }}>
                     {active_tab_element}
