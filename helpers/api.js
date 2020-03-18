@@ -34,6 +34,22 @@ export async function doAuthenticatedPost(url, body, options) {
 }
 /**
  * @param {string} url 
+ * @param {*} body
+ * @param {{ headers?: * }} [options]
+ * @returns {Promise<ResponseFormat>}
+ */
+export async function doAuthenticatedPut(url, body, options) {
+    let accessToken = GeneralHelper.getAccessToken();
+    try {
+        let response = await doPut(url, body, { ...options, headers: { 'Authorization': `Bearer ${accessToken}` } });
+        return response.data;
+    }
+    catch(err) {
+        throw err;
+    }
+}
+/**
+ * @param {string} url 
  * @param {{ headers?: * }} [options]
  * @returns {Promise<ResponseFormat>}
  */
@@ -56,6 +72,14 @@ export async function doGet(url, options = {}) {
     return await Axios.get(url, options);
 }
 /** POST method without any custom headers
+ * @param {string} url 
+ * @param {*} body
+ * @param {{ headers?: * }} options
+ */
+export async function doPut(url, body, options) {
+    return await Axios.put(url, body, options);
+}
+/** PUT method without any custom headers
  * @param {string} url 
  * @param {*} body
  * @param {{ headers?: * }} options
