@@ -33,7 +33,8 @@ export class Button extends React.Component {
     }
     render() {
         let props = this.props;
-        let { isDisabled } = this.state;
+        const { preventMultipleClicks } = props;
+        let isDisabled = this.state.isDisabled || this.props.disabled;
         let defaults = getDefaultProps();
         return (<MUIButton
             disabled={isDisabled}
@@ -41,9 +42,11 @@ export class Button extends React.Component {
             color={props.color || defaults.color}
             onClick={async (...p) => {
                 if(!isDisabled) {
-                    this.disableOnClick(); //We do not await this, as the other elements who are calling prevent default on the onclick props need to call preventDefault without awaiting
                     try {
                         let onClick = props.onClick || defaults.onClick;
+                        if(preventMultipleClicks) {
+                            this.disableOnClick();
+                        }
                         await onClick(...p);
                     }
                     catch(err) {
@@ -100,5 +103,7 @@ export default Button;
  * @property {JSX.Element} [innerIcon] The inner icon to be 
  * @property {boolean} [disableElevation]
  * @property {string} [className]
+ * @property {boolean} [disabled]
  * @property {React.CSSProperties} [style]
+ * @property {boolean} [preventMultipleClicks] Disable the button upon click until the onClick handler promise has been resolved
  */

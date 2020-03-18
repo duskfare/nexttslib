@@ -3,7 +3,7 @@ import Button from './Button';
  * @param {ButtonProps} props 
  */
 export function SubmitButton (props) {
-    return <Button {...props} onClick={withPreventDefault(props.onClick)} />
+    return <Button type='submit' preventMultipleClicks {...props} onClick={withPreventDefault(props.onClick)} />
 }
 
 function withPreventDefault(onClick) {
