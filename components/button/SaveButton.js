@@ -1,6 +1,6 @@
-import { SaveIcon } from '../icons/index';
 import IconButton from '@material-ui/core/IconButton';
 import * as React from 'react';
+import SaveIcon from '../icons/Save/SaveIcon';
 /**
  * 
  * @param {SaveButtonProps} props 

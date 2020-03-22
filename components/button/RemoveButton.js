@@ -1,8 +1,8 @@
 
-import { RemoveIcon } from '../icons/index';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 import * as React from 'react';
+import RemoveIcon from '../icons/Remove/RemoveIcon';
 /**
  * 
  * @param {RemoveButtonProps} props 

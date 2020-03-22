@@ -6,7 +6,6 @@ import MUIDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
-import { CloseIcon } from '../icons/index';
 import DialogActionsButton from '../../components/dialog/Dialog'
 import { Button, CloseButton } from '../button/index';
 import { externalClasses } from '../../theme/override';

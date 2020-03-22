@@ -1,8 +1,8 @@
 
-import { CloseIcon } from '../icons/index';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 import * as React from 'react';
+import CloseIcon from '../icons/Close/CloseIcon';
 /**
  * 
  * @param {CloseButtonProps} props 

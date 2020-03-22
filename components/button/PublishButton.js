@@ -1,6 +1,6 @@
-import { PublishIcon } from '../icons/index';
-import IconButton from '@material-ui/core/IconButton';
 import * as React from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import PublishIcon from '../icons/Publish/PublishIcon';
 /**
  * 
  * @param {PublishButtonProps} props 
