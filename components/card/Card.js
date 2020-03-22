@@ -37,7 +37,7 @@ export default function Card(props) {
 /**
  * @typedef CardProps
  * @property {React.CSSProperties} [style]
- * @property {string} [title]
+ * @property {*} [title]
  * @property {string} [subTitle]
  * @property {string} [className]
  * @property {*} children
