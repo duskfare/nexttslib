@@ -23,18 +23,6 @@ const DialogTitle = props => {
     );
 }
 
-const DialogContent = withStyles(theme => ({
-    root: {
-        padding: theme.spacing(2),
-    },
-}))(MUIDialogContent);
-
-const DialogActions = withStyles(theme => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(1),
-    },
-}))(MUIDialogActions);
 /** @type {Object<string, React.CSSProperties>} */
 const styles = {
     dialogPaper: {
