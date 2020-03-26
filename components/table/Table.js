@@ -58,21 +58,24 @@ class Table extends React.Component {
         const columns = formatColumns(headers);
         const styles = this.props.styles || {};
         const pageSize = this.props.pageSize || 10;
-        if(!this.isComponentReady) {
-            return <div/>
+        const actions = this.props.actions;
+        if (!this.isComponentReady) {
+            return <div />
         }
         return (
-            <MaterialTable 
-            title={title}
+            <MaterialTable
+                title={title}
                 options={{
-                    pageSize
+                    pageSize,
+                    selection: true
                 }}
-                style={{ height: '100%', ...styles }} 
-                icons={tableIcons} columns={columns} 
-                data={rows} 
+                style={{ height: '100%', ...styles }}
+                icons={tableIcons} columns={columns}
+                data={rows}
                 components={{
-                    Container: props => <Paper {...props} elevation={0}/>
-               }}
+                    Container: props => <Paper {...props} elevation={0} />
+                }}
+                actions={actions}
             />
         );
     }
@@ -80,17 +83,26 @@ class Table extends React.Component {
 export default Table;
 /**
  * @typedef TableProps
- * @property {string} title
+ * @property {string} [title]
  * @property {TableHeader[]} headers
  * @property {any[]} rows
  * @property {React.CSSProperties} [styles]
  * @property {number} [pageSize]
+ * @property {TableAction[]} [actions]
  */
 /**
  * @typedef TableHeader
  * @property {string} displayName
  * @property {string} key
  */
+/**
+ * 
+ * @typedef TableAction
+ * @property {string} tooltip
+ * @property {*} icon
+ * @property {function(any)} onClick
+ */
+
 /**
  * @param {TableHeader[]} headers 
  */
