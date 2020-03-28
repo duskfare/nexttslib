@@ -66,7 +66,7 @@ export class Button extends React.Component {
 }
 /**
  * Display the inner content of the button
- * @param {{ label: string, innerIcon: * }} props 
+ * @param {{ label: string | JSX.Element, innerIcon: * }} props 
  */
 export function InnerButtonContent(props) {
     let innerContent = (<span style={{ lineHeight: '2em' }}>{props.label}</span>);
@@ -96,7 +96,7 @@ export default Button;
 /**
  * @typedef ButtonProps
  * @property {'inherit' | 'primary' | 'secondary' | 'default'} [color]
- * @property {string} label Text to be displayed for button
+ * @property {string | JSX.Element} label Text to be displayed for button
  * @property {*} [onClick] OnClick handler
  * @property {'contained' | 'text' | 'outlined'} [variant]
  * @property {'submit' | 'button' | 'reset'} [type]
