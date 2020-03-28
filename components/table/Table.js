@@ -45,9 +45,17 @@ class Table extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isClient: false
         };
     }
     componentDidMount() {
+        (async () => {
+            await new Promise((resolve, reject) => {
+                this.setState({
+                    isClient: true
+                }, () => resolve());
+            });
+        })();
     }
     render() {
         const title = this.props.title || '';
@@ -57,6 +65,9 @@ class Table extends React.Component {
         const styles = this.props.styles || {};
         const pageSize = this.props.pageSize || 10;
         const actions = this.props.actions;
+        if(!this.state.isClient) {
+            return <div/>
+        }
         return (
             <MaterialTable
                 title={title}
