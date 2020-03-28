@@ -100,6 +100,7 @@ export default Table;
  * @typedef TableHeader
  * @property {string} displayName
  * @property {string} key
+ * @property {*} [render] Custom render function
  */
 /**
  * 
@@ -115,6 +116,7 @@ export default Table;
 function formatColumns(headers) {
     return headers.map(header => ({
         title: header.displayName,
-        field: header.key
+        field: header.key,
+        render: header.render
     }))
 }
