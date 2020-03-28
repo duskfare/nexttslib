@@ -46,10 +46,8 @@ class Table extends React.Component {
         super(props);
         this.state = {
         };
-        this.isComponentReady = false;
     }
     componentDidMount() {
-        this.isComponentReady = true;
     }
     render() {
         const title = this.props.title || '';
@@ -59,9 +57,6 @@ class Table extends React.Component {
         const styles = this.props.styles || {};
         const pageSize = this.props.pageSize || 10;
         const actions = this.props.actions;
-        if (!this.isComponentReady) {
-            return <div />
-        }
         return (
             <MaterialTable
                 title={title}
