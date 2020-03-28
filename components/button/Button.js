@@ -95,7 +95,7 @@ export default Button;
 
 /**
  * @typedef ButtonProps
- * @property {*} [color]
+ * @property {'inherit' | 'primary' | 'secondary' | 'default'} [color]
  * @property {string} label Text to be displayed for button
  * @property {*} [onClick] OnClick handler
  * @property {'contained' | 'text' | 'outlined'} [variant]

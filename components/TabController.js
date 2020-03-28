@@ -1,4 +1,5 @@
 import React from 'react';
+import OutlinedButton from './button/OutlinedButton';
 export class TabController extends React.Component {
     constructor(props) {
         super(props);
@@ -6,9 +7,6 @@ export class TabController extends React.Component {
             active_tab: null
         };
     }
-    // static getDerivedStateFromProps(props, state) {
-
-    // }
     componentDidUpdate(prevProps, prevState) {
         (async () => {
             let state = this.state;
@@ -18,7 +16,7 @@ export class TabController extends React.Component {
                 state.active_tab = this.getActiveTab();
             }
             //Re-render
-            if(didStateUpdate) {
+            if (didStateUpdate) {
                 await new Promise((resolve, reject) => {
                     this.setState(state, () => resolve());
                 });
@@ -32,12 +30,12 @@ export class TabController extends React.Component {
         let tab_heads = tabs.map((tab, idx) => {
             let activeClass = tab.id === active_tab.id ? 'tab-active' : '';
             return (
-                <button
+                <OutlinedButton
                     className={`${activeClass} no-outline subtle`}
                     key={idx}
-                    onClick={() => this.activateTab(tab)}>
-                    {tab.header}
-                </button>
+                    onClick={() => this.activateTab(tab)}
+                    label={tab.header}
+                />
             );
         });
         return <div className="h-100 m-0" style={{ display: 'flex', flexDirection: 'column' }}>
