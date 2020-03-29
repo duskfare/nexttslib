@@ -72,7 +72,7 @@ export function InnerButtonContent(props) {
     let innerContent = (<span style={{ lineHeight: '2em' }}>{props.label}</span>);
     if (props.innerIcon) {
         innerContent = (
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
                 {props.innerIcon}
                 <div style={{ width: '0.5em' }}></div>
                 <span style={{ lineHeight: '2em' }}>{props.label}</span>
