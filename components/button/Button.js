@@ -85,6 +85,9 @@ export function InnerButtonContent(props) {
         </div>
     );
 }
+/**
+ * @returns {DefaultButtonProps}
+ */
 function getDefaultProps() {
     return {
         color: 'primary',
@@ -107,3 +110,9 @@ export default Button;
  * @property {React.CSSProperties} [style]
  * @property {boolean} [preventMultipleClicks] Disable the button upon click until the onClick handler promise has been resolved
  */
+
+ /**
+  * @typedef DefaultButtonProps
+ * @property {'inherit' | 'primary' | 'secondary' | 'default'} [color]
+ * @property {*} [onClick] OnClick handler
+  */
