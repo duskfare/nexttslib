@@ -108,6 +108,7 @@ export default Button;
  * @property {string} [className]
  * @property {boolean} [disabled]
  * @property {React.CSSProperties} [style]
+ * @property {JSX.Element} [tooltip]
  * @property {boolean} [preventMultipleClicks] Disable the button upon click until the onClick handler promise has been resolved
  */
 
