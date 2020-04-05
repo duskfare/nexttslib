@@ -21,6 +21,7 @@ async function main() {
     console.log('Installing...');
     console.log(command);
     execSync(command, { cwd: __dirname, stdio: 'inherit' });
+    console.log('Done!');
 }
 main();
 
