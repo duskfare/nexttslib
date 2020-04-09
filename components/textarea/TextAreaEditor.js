@@ -54,7 +54,7 @@ class TextAreaEditor extends React.Component {
                     fontSize: 'small',
                 }}
                 minChar={0}
-                trigger={convertTriggers(triggers)}
+                trigger={convertTriggers(this.rta, triggers)}
             />
         );
     }
@@ -99,10 +99,11 @@ export default TextAreaEditor;
 
 /**
  * @template T
+ * @param {*} rta
  * @param {Trigger<T>[]} triggers
  * @returns {_Trigger}
  */
-function convertTriggers(triggers) {
+function convertTriggers(rta, triggers) {
     //Index triggers
     /** @type {Object<string, { trigger: string, options: any[], filters: function[]}>} */
     let triggers_aggr_index = {};
@@ -157,7 +158,15 @@ function convertTriggers(triggers) {
         _triggers[trigger_str] = {
             dataProvider,
             component: Item,
-            output: (item, _t) => item.value,
+            output: (item, _t) => {
+                let caretPosition = item.value.indexOf('$');
+                if (caretPosition === -1) {
+                    caretPosition = 'end';
+                } else if (caretPosition === 0) {
+                    caretPosition = 'start';
+                }
+                return { text: item.value, caretPosition };
+            },
             afterWhitespace: true,
             allowWhitespace: true,
         };
