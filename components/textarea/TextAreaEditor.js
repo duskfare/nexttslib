@@ -18,17 +18,43 @@ const Loading = (param) => {
 };
 /**
  * @template T
- * @extends {React.Component<TextAreaEditorProps<T>>}
+ * @extends {React.Component<TextAreaEditorProps>}
  */
 class TextAreaEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.validSuggestionValues = {}; //Keys are the suggestion strings, values are booleans
+    }
+    /**
+     * Add a valid suggesiton value to the index
+     * @param {string} suggestionValue
+     */
+    addValidSuggestionValue(suggestionValue) {
+        this.validSuggestionValues[suggestionValue] = true;
+    }
+
+    isValidSuggestion(suggestionValue) {
+        return this.validSuggestionValues[suggestionValue] ? true : false;
+    }
+
+    setSelectionRange(selectionStart, selectionEnd) {
+        if (this.textarea) {
+            setTimeout(() => {
+                //We wait for 1ms because of race conditions
+                this.textarea.setSelectionRange(selectionStart, selectionEnd);
+            }, 1);
+        }
+    }
+    componentDidMount() {
+        let onRef = this.props.onRef || (() => {});
+        onRef(this);
     }
     onChange(e) {
+        //Detect changes to the inserted values
         let onChange = this.props.onChange || (() => {});
         let newVal = e.target.value;
-        onChange(newVal);
+        onChange(newVal, e);
     }
     render() {
         let { className, triggers } = this.props;
@@ -54,25 +80,24 @@ class TextAreaEditor extends React.Component {
                     fontSize: 'small',
                 }}
                 minChar={0}
-                trigger={convertTriggers(this.rta, triggers)}
+                trigger={convertTriggers(this, triggers)}
             />
         );
     }
 }
 export default TextAreaEditor;
 /**
- * @template T
  * @typedef TextAreaEditorProps
+ * @property {function(TextAreaEditor): void} [onRef]
  * @property {string} [className]
  * @property {function} [onChange]
- * @property {Trigger<T>[]} triggers
+ * @property {Trigger[]} triggers
  */
 /**
- * @template T
  * @typedef Trigger
  * @property {string[]} triggers
- * @property {T[]} options
- * @property {function(string, T): boolean} filter
+ * @property {TriggerOption[]} options
+ * @property {function(string, TriggerOption): boolean} filter
  */
 /**
  * @callback TriggerFilter
@@ -98,17 +123,27 @@ export default TextAreaEditor;
  */
 
 /**
- * @template T
- * @param {*} rta
- * @param {Trigger<T>[]} triggers
+ * @typedef TriggerOption
+ * @property {string} label
+ * @property {string} description
+ * @property {any} value
+ */
+
+/**
+ * @param {TextAreaEditor} editor
+ * @param {Trigger[]} triggers
  * @returns {_Trigger}
  */
-function convertTriggers(rta, triggers) {
+function convertTriggers(editor, triggers) {
     //Index triggers
     /** @type {Object<string, { trigger: string, options: any[], filters: function[]}>} */
     let triggers_aggr_index = {};
     for (let trigger of triggers) {
         let { triggers: trigger_strs, options, filter } = trigger;
+        //Index the options in the editor for lookup
+        for (let option of options) {
+            editor.addValidSuggestionValue(option.value);
+        }
         for (let trigger_str of trigger_strs) {
             let existing_trigger = triggers_aggr_index[trigger_str];
             if (existing_trigger) {
@@ -159,12 +194,7 @@ function convertTriggers(rta, triggers) {
             dataProvider,
             component: Item,
             output: (item, _t) => {
-                let caretPosition = item.value.indexOf('$');
-                if (caretPosition === -1) {
-                    caretPosition = 'end';
-                } else if (caretPosition === 0) {
-                    caretPosition = 'start';
-                }
+                let caretPosition = 'end';
                 return { text: item.value, caretPosition };
             },
             afterWhitespace: true,
