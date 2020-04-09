@@ -17,14 +17,24 @@ const Loading = (param) => {
     return <div>Loading</div>;
 };
 /**
- * @template T
  * @extends {React.Component<TextAreaEditorProps>}
  */
 class TextAreaEditor extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            textAreaContent: '',
+        };
         this.validSuggestionValues = {}; //Keys are the suggestion strings, values are booleans
+    }
+    async componentDidMount() {
+        let load = this.props.load || (() => {});
+        let onRef = this.props.onRef || (() => {});
+        onRef(this);
+        let content = await load();
+        await new Promise((resolve, reject) => {
+            this.setState({ textAreaContent: content }, () => resolve());
+        });
     }
     /**
      * Add a valid suggesiton value to the index
@@ -46,20 +56,20 @@ class TextAreaEditor extends React.Component {
             }, 1);
         }
     }
-    componentDidMount() {
-        let onRef = this.props.onRef || (() => {});
-        onRef(this);
-    }
-    onChange(e) {
+    async onChange(e) {
         //Detect changes to the inserted values
         let onChange = this.props.onChange || (() => {});
         let newVal = e.target.value;
         onChange(newVal, e);
+        await new Promise((resolve, reject) => {
+            this.setState({ textAreaContent: newVal }, () => resolve());
+        });
     }
     render() {
         let { className, triggers } = this.props;
         return (
             <ReactTextareaAutocomplete
+                value={this.state.textAreaContent}
                 onChange={this.onChange.bind(this)}
                 className={className}
                 loadingComponent={Loading}
@@ -89,6 +99,7 @@ export default TextAreaEditor;
 /**
  * @typedef TextAreaEditorProps
  * @property {function(TextAreaEditor): void} [onRef]
+ * @property {function} [load]
  * @property {string} [className]
  * @property {function} [onChange]
  * @property {Trigger[]} triggers
