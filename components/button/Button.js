@@ -8,8 +8,8 @@ export class Button extends React.Component {
         super(props);
         this._mounted = false;
         this.state = {
-            isDisabled: false
-        }
+            isDisabled: false,
+        };
     }
     async componentDidMount() {
         this._mounted = true;
@@ -18,14 +18,14 @@ export class Button extends React.Component {
         this._mounted = false;
     }
     async disableOnClick() {
-        if(this._mounted) {
+        if (this._mounted) {
             await new Promise((resolve, reject) => {
                 this.setState({ isDisabled: true }, () => resolve());
             });
         }
     }
     async enableOnClick() {
-        if(this._mounted) {
+        if (this._mounted) {
             await new Promise((resolve, reject) => {
                 this.setState({ isDisabled: false }, () => resolve());
             });
@@ -36,40 +36,41 @@ export class Button extends React.Component {
         const { preventMultipleClicks } = props;
         let isDisabled = this.state.isDisabled || this.props.disabled;
         let defaults = getDefaultProps();
-        return (<MUIButton
-            disabled={isDisabled}
-            variant={props.variant || 'contained'}
-            color={props.color || defaults.color}
-            onClick={async (...p) => {
-                if(!isDisabled) {
-                    try {
-                        let onClick = props.onClick || defaults.onClick;
-                        if(preventMultipleClicks) {
-                            this.disableOnClick();
+        return (
+            <MUIButton
+                disabled={isDisabled}
+                variant={props.variant || 'contained'}
+                color={props.color || defaults.color}
+                onClick={async (...p) => {
+                    if (!isDisabled) {
+                        try {
+                            let onClick = props.onClick || defaults.onClick;
+                            if (preventMultipleClicks) {
+                                this.disableOnClick();
+                            }
+                            await onClick(...p);
+                        } catch (err) {
+                            console.error(err);
                         }
-                        await onClick(...p);
+                        await this.enableOnClick();
                     }
-                    catch(err) {
-                        console.error(err);
-                    }
-                    await this.enableOnClick();
-                }
-            }}
-            type={props.type || null}
-            disableElevation={props.disableElevation || false}
-            className={props.className || ''}
-            style={props.style || {}}
-        >
-            <InnerButtonContent innerIcon={props.innerIcon} label={props.label} />
-        </MUIButton>);
+                }}
+                type={props.type || null}
+                disableElevation={props.disableElevation || false}
+                className={props.className || ''}
+                style={{ outline: 'none', ...(props.style || {}) }}
+            >
+                <InnerButtonContent innerIcon={props.innerIcon} label={props.label} />
+            </MUIButton>
+        );
     }
 }
 /**
  * Display the inner content of the button
- * @param {{ label: string | JSX.Element, innerIcon: * }} props 
+ * @param {{ label: string | JSX.Element, innerIcon: * }} props
  */
 export function InnerButtonContent(props) {
-    let innerContent = (<span style={{ lineHeight: '2em' }}>{props.label}</span>);
+    let innerContent = <span style={{ lineHeight: '2em' }}>{props.label}</span>;
     if (props.innerIcon) {
         innerContent = (
             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -77,13 +78,9 @@ export function InnerButtonContent(props) {
                 <div style={{ width: '0.5em' }}></div>
                 <span style={{ lineHeight: '2em' }}>{props.label}</span>
             </div>
-        )
+        );
     }
-    return (
-        <div style={{ display: 'flex' }}>
-            {innerContent}
-        </div>
-    );
+    return <div style={{ display: 'flex' }}>{innerContent}</div>;
 }
 /**
  * @returns {DefaultButtonProps}
@@ -91,8 +88,8 @@ export function InnerButtonContent(props) {
 function getDefaultProps() {
     return {
         color: 'primary',
-        onClick: () => { },
-    }
+        onClick: () => {},
+    };
 }
 export default Button;
 
@@ -103,7 +100,7 @@ export default Button;
  * @property {*} [onClick] OnClick handler
  * @property {'contained' | 'text' | 'outlined'} [variant]
  * @property {'submit' | 'button' | 'reset'} [type]
- * @property {JSX.Element} [innerIcon] The inner icon to be 
+ * @property {JSX.Element} [innerIcon] The inner icon to be
  * @property {boolean} [disableElevation]
  * @property {string} [className]
  * @property {boolean} [disabled]
@@ -112,8 +109,8 @@ export default Button;
  * @property {boolean} [preventMultipleClicks] Disable the button upon click until the onClick handler promise has been resolved
  */
 
- /**
-  * @typedef DefaultButtonProps
+/**
+ * @typedef DefaultButtonProps
  * @property {'inherit' | 'primary' | 'secondary' | 'default'} [color]
  * @property {*} [onClick] OnClick handler
-  */
+ */
