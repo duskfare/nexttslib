@@ -7,3 +7,5 @@ export type Email = {
     subject: string;
     text: string;
 };
+
+export function createMailgunService(apiKey: string, domain: string): EmailService;
