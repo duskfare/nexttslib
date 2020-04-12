@@ -17,7 +17,7 @@ async function main() {
         //Update state
         item = (await src.next()).value;
     }
-    let command = `yarn add ${Object.keys(modules).join(' ')}`;
+    let command = `npm install ${Object.keys(modules).join(' ')}`;
     console.log('Installing...');
     console.log(command);
     execSync(command, { cwd: __dirname, stdio: 'inherit' });
