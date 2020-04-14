@@ -3,34 +3,31 @@ import MUICardHeader from '@material-ui/core/CardHeader';
 import MUICardActions from '@material-ui/core/CardActions';
 import { makeStyles } from '@material-ui/core/styles';
 import * as React from 'react';
-let useStyles = makeStyles(theme => ({
-    card: {
-    },
-    cardHeader: {
-    },
+let useStyles = makeStyles((theme) => ({
+    card: {},
+    cardHeader: {},
     cardTitle: {
         fontSize: '1.4em',
     },
-    cardSubTitle: {
-    }
-}))
+    cardSubTitle: {},
+}));
 /**
- * @param {CardProps} props 
+ * @param {CardProps} props
  */
 export default function Card(props) {
     let classes = useStyles(props);
     return (
-        <MUICard className={classes.card + ' ' + props.className} style={props.style || {}} variant={props.variant || 'outlined'}>
+        <MUICard
+            className={classes.card + ' ' + props.className}
+            style={props.style || {}}
+            variant={props.variant || 'outlined'}
+        >
             <div className={classes.cardHeader}>
                 {props.title && <div className={classes.cardTitle}>{props.title}</div>}
                 {props.subTitle && <div className={classes.cardSubTitle}>{props.subTitle}</div>}
             </div>
             {props.children}
-            {props.cardActions &&
-                <MUICardActions>
-                    {props.cardActions}
-                </MUICardActions>
-            }
+            {props.cardActions && <MUICardActions>{props.cardActions}</MUICardActions>}
         </MUICard>
     );
 }
