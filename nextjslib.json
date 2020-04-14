@@ -8,6 +8,7 @@
         "axios": "^0.19.2",
         "universal-cookie": "^4.0.3",
         "sweetalert2": "^9.10.10",
-        "mailgun-js": "^0.22.0"
+        "mailgun-js": "^0.22.0",
+        "react-markdown": "^4.3.1"
     }
 }
