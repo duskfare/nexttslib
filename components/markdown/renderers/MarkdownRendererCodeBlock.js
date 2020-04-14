@@ -1,6 +1,7 @@
 import * as React from 'react';
 import FlatButton from '../../button/FlatButton';
 import OutlinedCard from '../../card/OutlinedCard';
+import { copyToClipboard } from '../../../helpers/keyboard';
 /**
  * @extends {React.Component<MarkdownRendererCodeBlockProps>}
  */
@@ -18,7 +19,7 @@ class MarkdownRendererCodeBlock extends React.Component {
                     <FlatButton
                         style={{ position: 'absolute', top: '7px', right: '7px', padding: '1px' }}
                         label="Copy"
-                        onClick={() => navigator.clipboard.writeText(value)}
+                        onClick={() => copyToClipboard(value)}
                     />
                 </div>
 
