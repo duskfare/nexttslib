@@ -9,6 +9,14 @@ async function main() {
         const project_root = getProjectRoot();
 
         const nextjslib_manifest_filepath = path.join(dirroot, '/nextjslib.json');
+        if (!fs.existsSync(nextjslib_manifest_filepath)) {
+            fs.writeFileSync(
+                nextjslib_manifest_filepath,
+                JSON.stringify({
+                    dependencies: {},
+                })
+            );
+        }
         let nextjslib_manifest_content_raw = fs
             .readFileSync(nextjslib_manifest_filepath)
             .toString();
