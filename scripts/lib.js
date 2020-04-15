@@ -82,7 +82,7 @@ function getDefaultIgnore() {
 }
 
 function getFileImports(content) {
-    let regex = /(?<=import [^\s]+ from ')([^^()\[\]\{\}';.\s\n]+)(?=')/g;
+    let regex = /(?<=import [^\s]+ from ')([^^()\[\]\{\}';\s\n]+)(?=')/g;
     let matches = regex.exec(content);
     let imports = [];
     if (matches) {
