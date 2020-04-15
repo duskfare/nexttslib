@@ -46,7 +46,7 @@ export default class CodeBlock extends Component {
         }
         this.highlightInterval = setInterval(() => {
             this.updateHighlighting();
-        }, 1000);
+        }, 100);
     }
 
     async updateHighlighting() {
