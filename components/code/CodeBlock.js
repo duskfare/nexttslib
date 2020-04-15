@@ -15,6 +15,8 @@ export default class CodeBlock extends Component {
         this.state = { loaded: false, isValidLanguage: false };
         // create a ref to highlight only the rendered node and not fetch all the DOM
         this.codeNode = React.createRef();
+        this.highlightInterval = null;
+        this.isUpdatePending = false;
     }
 
     componentDidMount() {
@@ -42,10 +44,20 @@ export default class CodeBlock extends Component {
         } else {
             this.setState({ loaded: true, isValidLanguage: false });
         }
+        this.highlightInterval = setInterval(() => {
+            this.updateHighlighting();
+        }, 1000);
+    }
+
+    async updateHighlighting() {
+        if (this.isUpdatePending) {
+            this.highlight();
+            this.isUpdatePending = false;
+        }
     }
 
     componentDidUpdate() {
-        this.highlight();
+        this.isUpdatePending = true;
     }
 
     highlight = () => {
@@ -58,7 +70,6 @@ export default class CodeBlock extends Component {
     render() {
         const { language, value } = this.props;
         const { loaded } = this.state;
-        console.log(loaded, value);
         if (!loaded) return ''; // or show a loader
         return (
             <pre>
