@@ -5,6 +5,12 @@ body,
     height: 100%;
     margin: 0px;
 }
+
+textarea,
+button {
+    outline: none;
+}
+
 h1 {
     margin: 0px;
 }
