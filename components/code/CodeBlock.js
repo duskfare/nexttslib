@@ -72,7 +72,7 @@ export default class CodeBlock extends Component {
         const { loaded } = this.state;
         if (!loaded) return ''; // or show a loader
         return (
-            <pre>
+            <pre style={{ margin: '0px' }}>
                 <code ref={this.codeNode} className={language}>
                     {value}
                 </code>
