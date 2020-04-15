@@ -50,6 +50,8 @@ async function main() {
                 const new_version = project_dependencies[module_name];
                 if (old_version === new_version) {
                     continue;
+                } else {
+                    nextjslib_dependencies[module_name] = new_version;
                 }
                 console.log(`Updated '${module_name}' from '${old_version}' to  '${new_version}'`);
             }
