@@ -66,9 +66,10 @@ class TextAreaEditor extends React.Component {
         });
     }
     render() {
-        let { className, triggers } = this.props;
+        let { className, triggers, placeholder } = this.props;
         return (
             <ReactTextareaAutocomplete
+                placeholder={placeholder}
                 value={this.state.textAreaContent}
                 onChange={this.onChange.bind(this)}
                 className={className}
@@ -103,6 +104,7 @@ export default TextAreaEditor;
  * @property {string} [className]
  * @property {function} [onChange]
  * @property {Trigger[]} triggers
+ * @property {string} [placeholder]
  */
 /**
  * @typedef Trigger
