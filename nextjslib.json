@@ -7,8 +7,9 @@
         "@webscopeio/react-textarea-autocomplete": "^4.6.3",
         "axios": "^0.19.2",
         "universal-cookie": "^4.0.3",
-        "sweetalert2": "^9.10.10",
+        "sweetalert2": "^9.10.12",
         "mailgun-js": "^0.22.0",
-        "react-markdown": "^4.3.1"
+        "react-markdown": "^4.3.1",
+        "prop-types": "^15.7.2"
     }
 }
