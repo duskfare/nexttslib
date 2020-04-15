@@ -2,6 +2,7 @@ import * as React from 'react';
 import FlatButton from '../../button/FlatButton';
 import OutlinedCard from '../../card/OutlinedCard';
 import { copyToClipboard } from '../../../helpers/keyboard';
+import CodeBlock from '../../code/CodeBlock';
 /**
  * @extends {React.Component<MarkdownRendererCodeBlockProps>}
  */
@@ -24,7 +25,8 @@ class MarkdownRendererCodeBlock extends React.Component {
                 </div>
 
                 <OutlinedCard className="p-3">
-                    <code style={{ whiteSpace: 'pre-wrap' }}>{value}</code>
+                    <CodeBlock language={language} value={value} />
+                    {/* <code style={{ whiteSpace: 'pre-wrap' }}>{value}</code> */}
                 </OutlinedCard>
                 {language && (
                     <div className="text-sm detail d-flex pt-1 pr-2 pl-2">
