@@ -81,10 +81,14 @@ function getDefaultIgnore() {
     };
 }
 
+/**
+ * @param {string} content
+ */
 function getFileImports(content) {
     let regex = /(?<=import [^\s]+ from ')([^^()\[\]\{\}';\s\n]+)(?=')/g;
-    let matches = regex.exec(content);
+    // let matches = regex.exec(content);
     let imports = [];
+    let matches = content.match(regex);
     if (matches) {
         for (let match of matches) {
             if (!match) {
