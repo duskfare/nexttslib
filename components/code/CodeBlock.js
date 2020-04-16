@@ -25,6 +25,11 @@ export default class CodeBlock extends Component {
         language = language.toLowerCase();
         if (language && !registeredLanguages[language]) {
             try {
+                let lang = hljs.getLanguage(language);
+                if (!lang) {
+                    //Do not attempt to load invalid languages
+                    return;
+                }
                 const newLanguage = require(`highlight.js/lib/languages/${language}`);
                 hljs.registerLanguage(language, newLanguage);
                 registeredLanguages[language] = true;
