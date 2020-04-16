@@ -6,6 +6,10 @@ body,
     margin: 0px;
 }
 
+.ff-mono {
+    font-family: 'Courier New', Courier, monospace !important;
+}
+
 textarea,
 button {
     outline: none;
