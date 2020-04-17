@@ -1,0 +1,45 @@
+html,
+body,
+#__next {
+    font-family: 'Courier New', Courier, monospace;
+    height: 100%;
+    margin: 0px;
+}
+
+.ff-mono {
+    font-family: 'Courier New', Courier, monospace !important;
+}
+
+textarea,
+button {
+    outline: none;
+}
+
+h1 {
+    margin: 0px;
+}
+
+.header {
+    height: 10%;
+}
+
+.icon-sm {
+    height: 70px;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.detail {
+    font-size: small;
+    color: grey;
+}
+
+.font-sm {
+    font-size: small;
+}
+
+.font-xl {
+    font-size: x-large;
+}
