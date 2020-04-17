@@ -10,6 +10,10 @@
         "sweetalert2": "^9.10.12",
         "mailgun-js": "^0.22.0",
         "react-markdown": "^4.3.1",
-        "prop-types": "^15.7.2"
+        "prop-types": "^15.7.2",
+        "highlight.js": "^9.18.1",
+        "@material-ui/lab": "^4.0.0-alpha.49",
+        "query-string": "^6.12.1",
+        "array-move": "^2.2.1"
     }
 }
