@@ -1,90 +1,76 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import hljs from 'highlight.js'; // import hljs library
 import 'highlight.js/styles/solarized-light.css'; // import your preferred style
 import './hljs.override.css';
 const registeredLanguages = {}; // keep a record of registered languages
 
-/**
- * @extends {React.Component<CodeBlockProps>}
- */
-export default class CodeBlock extends Component {
-    constructor(props) {
-        super(props);
-        // do not show anything until language is loaded
-        this.state = { loaded: false, isValidLanguage: false };
-        // create a ref to highlight only the rendered node and not fetch all the DOM
-        this.codeNode = React.createRef();
-        this.highlightInterval = null;
-        this.isUpdatePending = false;
-    }
-
-    componentDidMount() {
-        let { language } = this.props;
-        let { isValidLanguage } = this.state;
-        language = language.toLowerCase();
-        if (language && !registeredLanguages[language]) {
+function loadLanguage(language_raw) {
+    if (language_raw) {
+        let language_safe = ('' + language_raw).toLowerCase();
+        if (!registeredLanguages[language_safe]) {
             try {
-                let lang = hljs.getLanguage(language);
+                let lang = hljs.getLanguage(language_safe);
                 if (!lang) {
-                    //Do not attempt to load invalid languages
-                    return;
+                    throw new Error('Invalid language');
                 }
-                const newLanguage = require(`highlight.js/lib/languages/${language}`);
-                hljs.registerLanguage(language, newLanguage);
-                registeredLanguages[language] = true;
-                isValidLanguage = true;
-            } catch (e) {
-                console.error(e);
-                console.error(`Cannot register and higlight language ${language}`);
+                const newLanguage = require(`highlight.js/lib/languages/${language_safe}`);
+                hljs.registerLanguage(language_safe, newLanguage);
+                registeredLanguages[language_safe] = true;
+                //Successfully loaded language
+                return true;
+            } catch (err) {
+                //Failed to load language
+                return false;
             }
-            this.setState(
-                () => {
-                    return { loaded: true, isValidLanguage };
-                },
-                () => {
-                    this.highlight();
-                }
-            );
         } else {
-            this.setState({ loaded: true, isValidLanguage: false });
-        }
-        this.highlightInterval = setInterval(() => {
-            this.updateHighlighting();
-        }, 100);
-    }
-
-    async updateHighlighting() {
-        if (this.isUpdatePending) {
-            this.highlight();
-            this.isUpdatePending = false;
+            //Language already loaded
+            return true;
         }
     }
-
-    componentDidUpdate() {
-        this.isUpdatePending = true;
-    }
-
-    highlight = () => {
-        let { isValidLanguage } = this.state;
-        if (isValidLanguage) {
-            this.codeNode && this.codeNode.current && hljs.highlightBlock(this.codeNode.current);
+    //Language not set
+    return false;
+}
+/**
+ * @param {CodeBlockProps} props
+ */
+function CodeBlock(props) {
+    const { language, value } = props;
+    const codeNode = React.useRef(null);
+    let scanTask = null;
+    /**
+     * Highlight the code
+     */
+    const highlight = () => {
+        let isDelayed = false;
+        if (scanTask) {
+            clearTimeout(scanTask);
+            isDelayed = true;
+        }
+        if (isDelayed) {
+            scanTask = setTimeout(() => {
+                codeNode && codeNode.current && hljs.highlightBlock(codeNode.current);
+            }, 100);
+        } else {
+            codeNode && codeNode.current && hljs.highlightBlock(codeNode.current);
         }
     };
-
-    render() {
-        const { language, value } = this.props;
-        const { loaded } = this.state;
-        if (!loaded) return ''; // or show a loader
-        return (
-            <pre style={{ margin: '0px' }}>
-                <code ref={this.codeNode} className={language}>
-                    {value}
-                </code>
-            </pre>
-        );
-    }
+    //Handle changes to the language or value
+    useEffect(() => {
+        let isLanguageLoaded = loadLanguage(language);
+        if (isLanguageLoaded) {
+            highlight();
+        }
+    }, [language, value]);
+    return (
+        <pre style={{ margin: '0px' }}>
+            <code ref={codeNode} className={language}>
+                {value}
+            </code>
+        </pre>
+    );
 }
+export default CodeBlock;
 
 CodeBlock.propTypes = {
     value: PropTypes.node.isRequired,
