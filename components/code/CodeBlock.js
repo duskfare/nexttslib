@@ -57,7 +57,7 @@ function CodeBlock(props) {
     }, [language, value]);
     return (
         <pre style={{ margin: '0px' }}>
-            <code ref={codeNode} className={language}>
+            <code ref={codeNode} style={{ whiteSpace: 'pre-wrap' }} className={language}>
                 {value}
             </code>
         </pre>
