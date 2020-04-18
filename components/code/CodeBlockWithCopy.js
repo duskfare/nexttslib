@@ -19,9 +19,10 @@ class CodeBlockWithCopy extends React.Component {
                     <div style={{ position: 'relative' }}>
                         <FlatButton
                             style={{
+                                backgroundColor: '#00000000',
                                 position: 'absolute',
-                                top: '7px',
-                                right: '7px',
+                                top: '2px',
+                                right: '2px',
                                 padding: '1px',
                             }}
                             label="Copy"
@@ -29,7 +30,7 @@ class CodeBlockWithCopy extends React.Component {
                         />
                     </div>
 
-                    <OutlinedCard className="p-3">
+                    <OutlinedCard className="p-3 pt-4">
                         <CodeBlock language={language} value={value} />
                     </OutlinedCard>
                     {language && (
