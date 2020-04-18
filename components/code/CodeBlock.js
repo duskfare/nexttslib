@@ -42,25 +42,18 @@ function CodeBlock(props) {
      * Highlight the code
      */
     const highlight = () => {
-        let isDelayed = false;
-        if (scanTask) {
-            clearTimeout(scanTask);
-            isDelayed = true;
-        }
-        if (isDelayed) {
-            scanTask = setTimeout(() => {
-                codeNode && codeNode.current && hljs.highlightBlock(codeNode.current);
-            }, 100);
-        } else {
-            codeNode && codeNode.current && hljs.highlightBlock(codeNode.current);
-        }
+        codeNode && codeNode.current && hljs.highlightBlock(codeNode.current);
     };
     //Handle changes to the language or value
     useEffect(() => {
         let isLanguageLoaded = loadLanguage(language);
         if (isLanguageLoaded) {
-            highlight();
+            scanTask = setTimeout(() => highlight(), 100);
         }
+        return () => {
+            //Clear the interval if there is
+            scanTask ? clearTimeout(scanTask) : null;
+        };
     }, [language, value]);
     return (
         <pre style={{ margin: '0px' }}>
