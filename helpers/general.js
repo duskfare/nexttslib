@@ -109,6 +109,6 @@ export function sortByCreatedDate(items) {
  * @param {number} newIndex
  * @returns {T[]}
  */
-export function reoreder(array, oldIndex, newIndex) {
+export function reorder(array, oldIndex, newIndex) {
     return arrayMove(array, oldIndex, newIndex);
 }
