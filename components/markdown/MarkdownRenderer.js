@@ -10,9 +10,10 @@ class MarkdownRenderer extends React.Component {
         this.state = {};
     }
     render() {
-        const { markdown } = this.props;
+        const { markdown, escapeHtml } = this.props;
         return (
             <ReactMarkdown
+                escapeHtml={escapeHtml}
                 source={markdown}
                 renderers={{
                     code: MarkdownRendererCodeBlock,
@@ -25,4 +26,5 @@ export default MarkdownRenderer;
 /**
  * @typedef MarkdownRendererProps
  * @property {string} [markdown]
+ * @property {boolean} [escapeHtml]
  */
