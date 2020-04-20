@@ -12,17 +12,20 @@ class CodeBlockWithCopy extends React.Component {
         this.state = {};
     }
     render() {
-        const { language, value, className } = this.props;
+        const { language, value, className, buttonClassName, buttonStyle } = this.props;
         return (
             <div className={className}>
                 <div className="d-flex flex-column">
                     <div style={{ position: 'relative' }}>
                         <FlatButton
+                            className={buttonClassName}
                             style={{
+                                backgroundColor: '#00000000',
                                 position: 'absolute',
                                 top: '7px',
                                 right: '7px',
                                 padding: '1px',
+                                ...(buttonStyle || {}),
                             }}
                             label="Copy"
                             onClick={() => copyToClipboard(value)}
@@ -49,4 +52,6 @@ export default CodeBlockWithCopy;
  * @property {string} [className]
  * @property {string} [value]
  * @property {string} [language]
+ * @property {string} [buttonClassName]
+ * @property {React.CSSProperties} [buttonStyle]
  */

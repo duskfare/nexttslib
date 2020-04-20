@@ -37,7 +37,7 @@ a {
 }
 
 .font-sm {
-    font-size: small;
+    font-size: small !important;
 }
 
 .font-xl {
