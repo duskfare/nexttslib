@@ -6,10 +6,6 @@ body,
     margin: 0px;
 }
 
-.ff-mono {
-    font-family: 'Courier New', Courier, monospace !important;
-}
-
 textarea,
 button {
     outline: none;
@@ -19,6 +15,17 @@ h1 {
     margin: 0px;
 }
 
+@media (max-width: 26.25em) {
+    h1 {
+        font-size: 1.875em;
+    }
+}
+
+a {
+    text-decoration: none !important;
+}
+
+/* Classes */
 .header {
     height: 10%;
 }
@@ -27,10 +34,9 @@ h1 {
     height: 70px;
 }
 
-a {
-    text-decoration: none !important;
+.ff-mono {
+    font-family: 'Courier New', Courier, monospace !important;
 }
-
 .detail {
     font-size: small;
     color: grey;

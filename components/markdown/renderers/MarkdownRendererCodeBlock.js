@@ -13,7 +13,6 @@ class MarkdownRendererCodeBlock extends React.Component {
         this.state = {};
     }
     render() {
-        const props = this.props;
         const { language, value } = this.props;
         return <CodeBlockWithCopy language={language} value={value} />;
     }
