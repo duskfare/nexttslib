@@ -115,6 +115,7 @@ export default function withForm(Component, options = {}) {
                         handleChange: this.handleChange.bind(this),
                         loadFormData: this.loadFormData.bind(this),
                         validate: this.validate.bind(this),
+                        setFieldValue: this.setFieldValue.bind(this),
                         formData: this.state.formData,
                         errors: this.state.errors,
                         fields: this.getFields(),
@@ -144,9 +145,10 @@ export default function withForm(Component, options = {}) {
  */
 /**
  * @typedef HOCForm
- * @property {function} handleChange
- * @property {function} loadFormData
- * @property {function} validate
+ * @property {function(string):function(string):Promise<void>} handleChange
+ * @property {function(any)} loadFormData
+ * @property {function():Promise<boolean>} validate
+ * @property {function(string, string):Promise<void>} setFieldValue
  * @property {*} formData
  * @property {*} errors
  * @property {*} fields

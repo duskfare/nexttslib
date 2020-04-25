@@ -74,5 +74,5 @@ function getDefaultStyles() {
  */
 
 /**
- * @typedef {'username' | 'password' | 'given-name' | 'family-name' | 'bday' } HTMLAutocompleteTypes
+ * @typedef {'email' | 'username' | 'password' | 'given-name' | 'family-name' | 'bday' } HTMLAutocompleteTypes
  */
