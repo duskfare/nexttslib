@@ -29,7 +29,7 @@ export default class TextField extends React.Component {
     }
     render() {
         let props = this.props;
-        let { label, type, value: propValue, errorText = '', autocomplete, multiline, rows, disabled } = props;
+        let { label, type, value: propValue, errorText = '', autocomplete, multiline, rows, disabled, inject } = props;
         let { value: stateValue } = this.state;
         let value = (this.isPropsValueUsed() ? propValue : stateValue) || '';
         let error = errorText ? true : false;
@@ -50,6 +50,7 @@ export default class TextField extends React.Component {
                 multiline={multiline}
                 rows={rows}
                 disabled={disabled}
+                {...(inject || {})}
             />
         );
     }
@@ -75,6 +76,7 @@ function getDefaultStyles() {
  * @property {boolean} [multiline]
  * @property {number} [rows]
  * @property {React.CSSProperties} [style]
+ * @property {*} [inject] Any custom injected props to the component directly
  */
 
 /**
