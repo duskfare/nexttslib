@@ -11,10 +11,10 @@ export default function withForm(Component, options = {}) {
     class WrapperComponent extends React.Component {
         constructor(props) {
             super(props);
-            let keys = options && options.validations ? Object.keys(options.validations) : [];
+            let keys = options && options.initialState ? Object.keys(options.initialState) : [];
             this.state = {
                 formData: keys.reduce((state, key) => {
-                    state[key] = null; //Init form data with null values
+                    state[key] = options ? options.initialState[key].value : null; //Init form data with null values
                     return state;
                 }, {}),
                 errors: {},
@@ -106,6 +106,9 @@ export default function withForm(Component, options = {}) {
             }
             return fields;
         }
+        getFormData() {
+            return this.state.formData;
+        }
         render() {
             return (
                 <Component
@@ -135,6 +138,7 @@ export default function withForm(Component, options = {}) {
 /**
  * @typedef WithFormOptions
  * @property {Object<string, FieldValidation>} [validations]
+ * @property {Object<string, Field>} [initialState]
  */
 /**
  * @typedef {function(Object<string, any>, any): string} FieldValidation
@@ -145,7 +149,7 @@ export default function withForm(Component, options = {}) {
  */
 /**
  * @typedef HOCForm
- * @property {function(string):function(string):Promise<void>} handleChange
+ * @property {function(string):function(*):Promise<void>} handleChange
  * @property {function(any)} loadFormData
  * @property {function():Promise<boolean>} validate
  * @property {function(string, string):Promise<void>} setFieldValue
