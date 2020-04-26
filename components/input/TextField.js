@@ -29,7 +29,7 @@ export default class TextField extends React.Component {
     }
     render() {
         let props = this.props;
-        let { label, type, value: propValue, errorText = '', autocomplete, multiline, rows } = props;
+        let { label, type, value: propValue, errorText = '', autocomplete, multiline, rows, disabled } = props;
         let { value: stateValue } = this.state;
         let value = (this.isPropsValueUsed() ? propValue : stateValue) || '';
         let error = errorText ? true : false;
@@ -49,6 +49,7 @@ export default class TextField extends React.Component {
                 fullWidth={true}
                 multiline={multiline}
                 rows={rows}
+                disabled={disabled}
             />
         );
     }
@@ -65,7 +66,8 @@ function getDefaultStyles() {
 /**
  * @typedef TextFieldProps
  * @property {string} label
- * @property {*} onChange
+ * @property {boolean} [disabled]
+ * @property {*} [onChange]
  * @property {*} [value]
  * @property {string} [type]
  * @property {string} [errorText]
