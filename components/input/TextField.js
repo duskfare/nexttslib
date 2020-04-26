@@ -20,9 +20,11 @@ export default class TextField extends React.Component {
     async onChange(e) {
         let onChange = this.props.onChange || (() => {});
         let value = e.target.value;
-        await new Promise((resolve, reject) => {
-            this.setState({ value }, () => resolve());
-        });
+        if (!this.isPropsValueUsed()) {
+            await new Promise((resolve, reject) => {
+                this.setState({ value }, () => resolve());
+            });
+        }
         await onChange(value);
     }
     render() {
