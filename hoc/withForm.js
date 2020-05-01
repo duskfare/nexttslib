@@ -34,7 +34,7 @@ export default function withForm(Component, options = {}) {
             if (validations) {
                 let validate = validations[field_name];
                 if (validate) {
-                    errors[field_name] = validate(formData, field_value);
+                    errors[field_name] = validate(this.getForm(), field_value);
                 }
             }
             await new Promise((resolve, reject) => {
@@ -109,22 +109,19 @@ export default function withForm(Component, options = {}) {
         getFormData() {
             return this.state.formData;
         }
+        getForm() {
+            return {
+                handleChange: this.handleChange.bind(this),
+                loadFormData: this.loadFormData.bind(this),
+                validate: this.validate.bind(this),
+                setFieldValue: this.setFieldValue.bind(this),
+                formData: this.state.formData,
+                errors: this.state.errors,
+                fields: this.getFields(),
+            };
+        }
         render() {
-            return (
-                <Component
-                    {...this.props}
-                    onRef={(child) => (this.child = child)}
-                    form={{
-                        handleChange: this.handleChange.bind(this),
-                        loadFormData: this.loadFormData.bind(this),
-                        validate: this.validate.bind(this),
-                        setFieldValue: this.setFieldValue.bind(this),
-                        formData: this.state.formData,
-                        errors: this.state.errors,
-                        fields: this.getFields(),
-                    }}
-                />
-            );
+            return <Component {...this.props} onRef={(child) => (this.child = child)} form={this.getForm()} />;
         }
     }
     return WrapperComponent;
