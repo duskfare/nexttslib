@@ -75,7 +75,7 @@ export default function withForm(Component, options = {}) {
                 for (let key of fields) {
                     let validate = validations[key];
                     if (validate) {
-                        let error = validate(this, formData[key]);
+                        let error = validate(this.getForm(), formData[key]);
                         errors[key] = error;
                     }
                 }
