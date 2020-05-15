@@ -7,9 +7,16 @@ import * as React from 'react';
  * @param {CardProps} props
  */
 export default function Card(props) {
-    // let classes = useStyles(props);
+    const onClick = props.onClick || (() => {});
+    const onMouseOver = props.onMouseOver || (() => {});
     return (
-        <MUICard className={props.className || ''} style={props.style || {}} variant={props.variant || 'outlined'}>
+        <MUICard
+            className={props.className || ''}
+            style={props.style || {}}
+            variant={props.variant || 'outlined'}
+            onClick={onClick}
+            onMouseOver={onMouseOver}
+        >
             <div>
                 {props.title && <div style={{ fontSize: '1.4em' }}>{props.title}</div>}
                 {props.subTitle && <div>{props.subTitle}</div>}
@@ -28,4 +35,6 @@ export default function Card(props) {
  * @property {*} children
  * @property {*} [cardActions]
  * @property {'outlined' | 'elevation'} [variant]
+ * @property {*} [onClick]
+ * @property {*} [onMouseOver]
  */
