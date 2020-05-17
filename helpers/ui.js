@@ -14,13 +14,17 @@ export async function alert(type, { title = '', text, footer }, options = {}) {
     if ('showCancelButton' in options) {
         showCancelButton = options.showCancelButton;
     }
+    let confirmButtonText = 'Confirm';
+    if ('confirmButtonText' in options) {
+        confirmButtonText = options.confirmButtonText;
+    }
     let result = await SweetAlert.fire({
         icon: type,
         title,
         text,
         footer,
         showCancelButton,
-        confirmButtonText: 'Confirm',
+        confirmButtonText,
         cancelButtonText: 'Cancel',
         confirmButtonColor: options.confirmButtonColor,
     });
@@ -39,5 +43,6 @@ export async function alert(type, { title = '', text, footer }, options = {}) {
 /**
  * @typedef AlertOptions
  * @property {string} [confirmButtonColor]
+ * @property {string} [confirmButtonText]
  * @property {boolean} [showCancelButton]
  */
