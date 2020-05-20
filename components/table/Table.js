@@ -36,7 +36,7 @@ const tableIcons = {
     Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
     SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
     ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 /**
  * @extends {React.Component<TableProps>}
@@ -45,15 +45,18 @@ class Table extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isClient: false
+            isClient: false,
         };
     }
     componentDidMount() {
         (async () => {
             await new Promise((resolve, reject) => {
-                this.setState({
-                    isClient: true
-                }, () => resolve());
+                this.setState(
+                    {
+                        isClient: true,
+                    },
+                    () => resolve()
+                );
             });
         })();
     }
@@ -65,21 +68,22 @@ class Table extends React.Component {
         const styles = this.props.styles || {};
         const pageSize = this.props.pageSize || 10;
         const actions = this.props.actions;
-        if(!this.state.isClient) {
-            return <div/>
+        if (!this.state.isClient) {
+            return <div />;
         }
         return (
             <MaterialTable
                 title={title}
                 options={{
                     pageSize,
-                    selection: true
+                    selection: true,
                 }}
                 style={{ height: '100%', ...styles }}
-                icons={tableIcons} columns={columns}
+                icons={tableIcons}
+                columns={columns}
                 data={rows}
                 components={{
-                    Container: props => <Paper {...props} elevation={0} />
+                    Container: (props) => <Paper {...props} elevation={0} />,
                 }}
                 actions={actions}
             />
@@ -103,7 +107,7 @@ export default Table;
  * @property {*} [render] Custom render function
  */
 /**
- * 
+ *
  * @typedef TableAction
  * @property {string} tooltip
  * @property {*} icon
@@ -111,12 +115,12 @@ export default Table;
  */
 
 /**
- * @param {TableHeader[]} headers 
+ * @param {TableHeader[]} headers
  */
 function formatColumns(headers) {
-    return headers.map(header => ({
+    return headers.map((header) => ({
         title: header.displayName,
         field: header.key,
-        render: header.render
-    }))
+        render: header.render,
+    }));
 }
