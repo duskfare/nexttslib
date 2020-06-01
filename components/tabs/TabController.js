@@ -34,7 +34,7 @@ export class TabController extends React.Component {
             );
         });
         return (
-            <div className="h-100 m-0" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div className="h-100 w-100 m-0" style={{ display: 'flex', flexDirection: 'column' }}>
                 <TabControllerHeadsDesktop tabs={tabs} active_tab={active_tab} activateTab={this.activateTab.bind(this)} />
                 <div className="w-100" style={{ backgroundColor: '#363A43', flex: '1', margin: 'auto', overflow: 'auto' }}>
                     <div className="h-100" style={{ display: 'flex' }}>
@@ -129,7 +129,7 @@ function TabControllerHeadsMobile(props) {
     });
     // Display only on screens that are md in size and above
     return (
-        <table className="d-md-none" style={{ backgroundColor: '#363A43', paddingTop: '30px', borderTop: `1px solid #AAAAAA` }}>
+        <table className="d-md-none w-100" style={{ backgroundColor: '#363A43', paddingTop: '30px', borderTop: `1px solid #AAAAAA` }}>
             <tbody className="w-100">
                 <tr>{tab_heads}</tr>
             </tbody>
