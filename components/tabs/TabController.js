@@ -1,5 +1,5 @@
 import React from 'react';
-import OutlinedButton from './button/OutlinedButton';
+import OutlinedButton from '../button/OutlinedButton';
 export class TabController extends React.Component {
     constructor(props) {
         super(props);
