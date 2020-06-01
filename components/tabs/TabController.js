@@ -118,7 +118,7 @@ function TabControllerHeadsMobile(props) {
         const { icon, title } = tab;
         let activeClass = tab.id === active_tab.id ? 'tab-active' : '';
         return (
-            <td style={tabItemStyle} onClick={() => activateTab(tab)}>
+            <td key={idx} style={tabItemStyle} onClick={() => activateTab(tab)}>
                 <div className="d-flex flex-column justify-content-center">
                     <div className="text-center pt-2">{icon}</div>
                     <div className="p-1" />
