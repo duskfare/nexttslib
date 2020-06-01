@@ -35,12 +35,13 @@ export class TabController extends React.Component {
         });
         return (
             <div className="h-100 m-0" style={{ display: 'flex', flexDirection: 'column' }}>
-                <TabControllerHeadsDesktop tabs={tabs} active_tab={active_tab} />
-                <div className="w-100" style={{ backgroundColor: '#363A43', flex: '1', margin: 'auto' }}>
+                <TabControllerHeadsDesktop tabs={tabs} active_tab={active_tab} activateTab={this.activateTab.bind(this)} />
+                <div className="w-100" style={{ backgroundColor: '#363A43', flex: '1', margin: 'auto', overflow: 'auto' }}>
                     <div className="h-100" style={{ display: 'flex' }}>
                         {tab_content}
                     </div>
                 </div>
+                <TabControllerHeadsMobile tabs={tabs} active_tab={active_tab} activateTab={this.activateTab.bind(this)} />
             </div>
         );
     }
@@ -66,10 +67,10 @@ export default TabController;
 
 /**
  *
- * @param {{ tabs: Tab[], active_tab: { id: string }}} props
+ * @param {TabControllerTabsProps} props
  */
 function TabControllerHeadsDesktop(props) {
-    const { tabs, active_tab } = props;
+    const { tabs, active_tab, activateTab } = props;
     let tabHeaderStyle = { display: 'flex', padding: '3px', width: '130px', height: '40px', alignItems: 'center' };
     /** @type {React.CSSProperties} */
     let tabHeaderTextStyle = { display: 'inline-block', flexGrow: 1, textAlign: 'center' };
@@ -80,7 +81,7 @@ function TabControllerHeadsDesktop(props) {
             <OutlinedButton
                 className={`${activeClass} no-outline subtle`}
                 key={idx}
-                onClick={() => this.activateTab(tab)}
+                onClick={() => activateTab(tab)}
                 label={
                     <div style={tabHeaderStyle}>
                         {icon}
@@ -92,8 +93,55 @@ function TabControllerHeadsDesktop(props) {
             />
         );
     });
-    return <div style={{ backgroundColor: '#363A43' }}>{tab_heads}</div>;
+    // Display only on screens that are md in size and above
+    return (
+        <div style={{ backgroundColor: '#363A43' }}>
+            <div className="d-none d-md-block">{tab_heads}</div>
+            {/* Add some spacing for the top when tool bar shifts */}
+            <div className="d-block pt-1 d-md-none" />
+        </div>
+    );
 }
+
+/**
+ * @param {TabControllerTabsProps} props
+ */
+function TabControllerHeadsMobile(props) {
+    const { tabs, active_tab, activateTab } = props;
+    let widthPercent = (1 / tabs.length) * 100;
+    /** @type {React.CSSProperties} */
+    const tabItemStyle = { width: `${widthPercent}%`, cursor: 'pointer' };
+    let tabHeaderStyle = { display: 'flex', padding: '3px', width: '130px', height: '40px', alignItems: 'center' };
+    /** @type {React.CSSProperties} */
+    let tabHeaderTextStyle = { display: 'inline-block', flexGrow: 1, textAlign: 'center' };
+    let tab_heads = tabs.map((tab, idx) => {
+        const { icon, title } = tab;
+        let activeClass = tab.id === active_tab.id ? 'tab-active' : '';
+        return (
+            <td style={tabItemStyle} onClick={() => activateTab(tab)}>
+                <div className="d-flex flex-column justify-content-center">
+                    <div className="text-center pt-2">{icon}</div>
+                    <div className="p-1" />
+                    <small className="text-center">{title}</small>
+                </div>
+            </td>
+        );
+    });
+    // Display only on screens that are md in size and above
+    return (
+        <table className="d-md-none" style={{ backgroundColor: '#363A43', paddingTop: '30px', borderTop: `1px solid #AAAAAA` }}>
+            <tbody className="w-100">
+                <tr>{tab_heads}</tr>
+            </tbody>
+        </table>
+    );
+}
+/**
+ * @typedef TabControllerTabsProps
+ * @property {Tab[]} tabs
+ * @property {Tab} active_tab
+ * @property {function} activateTab
+ */
 
 /**
  * @typedef Tab
