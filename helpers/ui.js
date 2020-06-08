@@ -6,7 +6,7 @@ export async function alertConfirm({ title = '', text, footer = null }) {
 /**
  *
  * @param {'warning' | 'error' | 'info' | 'success' | 'question'} type
- * @param {*} param1
+ * @param {{ title?: string, text?: string, footer?: any }} param1
  * @param {AlertOptions} options
  */
 export async function alert(type, { title = '', text, footer }, options = {}) {
@@ -27,6 +27,7 @@ export async function alert(type, { title = '', text, footer }, options = {}) {
         confirmButtonText,
         cancelButtonText: 'Cancel',
         confirmButtonColor: options.confirmButtonColor,
+        heightAuto: false,
     });
     let confirm = true;
     switch (result.dismiss) {
