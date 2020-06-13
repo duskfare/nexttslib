@@ -126,6 +126,18 @@ export function formatObjectAsQuery(o) {
     }
     return op;
 }
+
+export function formatResponseError(err) {
+    let response = err.response;
+    return {
+        response: {
+            url: response.request.responseURL,
+            data: response.data,
+            status: response.status,
+            statusText: response.statusText,
+        },
+    };
+}
 /**
  * @typedef ResponseFormat
  * @property {*} data
