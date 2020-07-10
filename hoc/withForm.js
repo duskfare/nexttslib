@@ -49,7 +49,7 @@ export default function withForm(Component, options = {}) {
             await onFormDataChanged(formData);
         }
         async loadFormData(formData) {
-            formData = formData || {};
+            formData = Object.assign({}, formData);
             await new Promise((resolve, reject) => {
                 this.setState({ formData }, () => resolve());
             });
