@@ -1,12 +1,10 @@
 import MUICard from '@material-ui/core/Card';
 import MUICardHeader from '@material-ui/core/CardHeader';
 import MUICardActions from '@material-ui/core/CardActions';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, StylesProvider } from '@material-ui/core/styles';
+import styles from './Card.module.css';
 import * as React from 'react';
-/**
- * @param {CardProps} props
- */
-export default function Card(props) {
+export default function Card(props: CardProps) {
   const onClick = props.onClick || (() => {});
   const onMouseOver = props.onMouseOver || (() => {});
   return (
@@ -17,25 +15,29 @@ export default function Card(props) {
       onClick={onClick}
       onMouseOver={onMouseOver}
     >
-      <div>
-        {props.title && <div style={{ fontSize: '1.4em' }}>{props.title}</div>}
-        {props.subTitle && <div>{props.subTitle}</div>}
+      <div className={styles['card-content-wrapper']}>
+        <div>
+          {props.title && (
+            <div className={styles['card-title']}>{props.title}</div>
+          )}
+          {props.subTitle && <div>{props.subTitle}</div>}
+        </div>
+        <div className={styles['card-content']}>{props.children}</div>
+        {props.cardActions && (
+          <MUICardActions>{props.cardActions}</MUICardActions>
+        )}
       </div>
-      {props.children}
-      {props.cardActions && (
-        <MUICardActions>{props.cardActions}</MUICardActions>
-      )}
     </MUICard>
   );
 }
 export interface CardProps {
-  style: React.CSSProperties;
-  title: any;
-  subTitle: string;
-  className: string;
-  children: any;
-  cardActions: any;
-  variant: 'outlined' | 'elevation';
-  onClick: any;
-  onMouseOver: any;
+  style?: React.CSSProperties;
+  title?: any;
+  subTitle?: string;
+  className?: string;
+  children?: any;
+  cardActions?: any;
+  variant?: 'outlined' | 'elevation';
+  onClick?: any;
+  onMouseOver?: any;
 }
