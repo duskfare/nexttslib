@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FieldProps } from '../components/input/FieldProps';
+import { FieldProps } from '../components/input/interfaces/FieldProps';
 export function useForm(options: FormOptions): [Form] {
   //Init the form state
   let keys =
