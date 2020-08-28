@@ -7,7 +7,7 @@ async function main() {
   const dirroot = getNextJsLibRoot();
   let modules = await lib.getModules(dirroot);
 
-  const nextjslib_manifest_filepath = path.join(dirroot, '/nextjslib.json');
+  const nextjslib_manifest_filepath = path.join(dirroot, '/nexttslib.json');
   if (!fs.existsSync(nextjslib_manifest_filepath)) {
     fs.writeFileSync(
       nextjslib_manifest_filepath,

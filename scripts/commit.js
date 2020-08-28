@@ -8,7 +8,7 @@ async function main() {
     const dirroot = getNextJsLibRoot();
     const project_root = getProjectRoot();
 
-    const nextjslib_manifest_filepath = path.join(dirroot, '/nextjslib.json');
+    const nextjslib_manifest_filepath = path.join(dirroot, '/nexttslib.json');
     if (!fs.existsSync(nextjslib_manifest_filepath)) {
       fs.writeFileSync(
         nextjslib_manifest_filepath,
@@ -46,7 +46,7 @@ async function main() {
         let new_version = project_dependencies[module_name];
         nextjslib_dependencies[module_name] = new_version;
         console.log(
-          `Added '${module_name}' with version '${new_version}' to nextjslib.json`
+          `Added '${module_name}' with version '${new_version}' to nexttslib.json`
         );
       } else {
         //NextJsLib Version is already defined
