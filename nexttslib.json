@@ -14,6 +14,8 @@
         "query-string": "^6.12.1",
         "array-move": "^2.2.1",
         "sweetalert2": "^9.10.12",
-        "mailgun-js": "^0.22.0"
+        "mailgun-js": "^0.22.0",
+        "mysqldriver": "^4.3.2",
+        "react-sortable-hoc": "^1.11.0"
     }
 }
