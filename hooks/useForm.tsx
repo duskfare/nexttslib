@@ -127,7 +127,7 @@ export function useForm(options: FormOptions): [Form] {
 interface Form {
   handleChange: (fieldName: string) => (fieldValue: any) => Promise<void>;
   loadFormData: (formData: any) => void;
-  validate: (fields?: string[]) => void;
+  validate: (fields?: string[]) => boolean;
   formData: { [key: string]: any };
   errors: { [key: string]: any };
   fields: { [key: string]: Field };
