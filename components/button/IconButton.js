@@ -1,24 +1,29 @@
 import MUIIconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
 import * as React from 'react';
-import CloseIcon from '../icons/Close/CloseIcon';
 /**
  *
  * @param {IconButtonProps} props
  */
 export default function IconButton(props) {
-    const { className, icon, onClick = () => {}, ariaLabel, style = {}, size = 'medium' } = props;
-    return (
-        <MUIIconButton
-            className={className}
-            aria-label={ariaLabel}
-            style={{ outline: 'none', ...style }}
-            onClick={onClick}
-            size={size}
-        >
-            {icon}
-        </MUIIconButton>
-    );
+  const {
+    className,
+    icon,
+    onClick = () => {},
+    ariaLabel,
+    style = {},
+    size = 'medium',
+  } = props;
+  return (
+    <MUIIconButton
+      className={className}
+      aria-label={ariaLabel}
+      style={{ outline: 'none', ...style }}
+      onClick={onClick}
+      size={size}
+    >
+      {icon}
+    </MUIIconButton>
+  );
 }
 /**
  * @typedef IconButtonProps

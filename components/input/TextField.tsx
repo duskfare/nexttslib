@@ -80,7 +80,7 @@ function getDefaultStyles() {
   };
   return style;
 }
-interface TextFieldProps extends FieldProps {
+export interface TextFieldProps extends FieldProps {
   label: string;
   disabled?: boolean;
   value: any;

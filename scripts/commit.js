@@ -2,7 +2,6 @@
 let fs = require('fs');
 let path = require('path');
 const lib = require('./lib').modules;
-let { execSync } = require('child_process');
 async function main() {
   try {
     const dirroot = getNextJsLibRoot();

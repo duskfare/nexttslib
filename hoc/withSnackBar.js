@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 export function withSnackbar(Component) {
-  return (props) => {
+  let WrappedComponent = (props) => {
     const [open, setOpen] = useState(false);
     /** @type { {type: NotificationSeverity, message: string }} */
     let notificationInitialState = { type: 'info', message: '' };
@@ -27,6 +27,7 @@ export function withSnackbar(Component) {
       </React.Fragment>
     );
   };
+  return WrappedComponent;
 }
 
 /**

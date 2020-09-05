@@ -1,9 +1,11 @@
-import MUIDivider from '@material-ui/core/Divider';
+import React from 'react';
 export default function Divider() {
-    return (
-        <hr style={{
-            height: '1px',
-            backgroundColor: 'grey',
-        }}/>
-    )
+  return (
+    <hr
+      style={{
+        height: '1px',
+        backgroundColor: 'grey',
+      }}
+    />
+  );
 }

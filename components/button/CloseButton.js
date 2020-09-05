@@ -1,19 +1,17 @@
-
 import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
 import * as React from 'react';
 import CloseIcon from '../icons/Close/CloseIcon';
 /**
- * 
- * @param {CloseButtonProps} props 
+ *
+ * @param {CloseButtonProps} props
  */
 export default function CloseButton(props) {
-    const { onClick = () => {} , style = {}, size = 'medium' } = props;
-    return (
-        <IconButton aria-label="close" style={style} onClick={onClick} size={size}>
-            <CloseIcon />
-        </IconButton>
-    )
+  const { onClick = () => {}, style = {}, size = 'medium' } = props;
+  return (
+    <IconButton aria-label="close" style={style} onClick={onClick} size={size}>
+      <CloseIcon />
+    </IconButton>
+  );
 }
 /**
  * @typedef CloseButtonProps

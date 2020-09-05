@@ -1,9 +1,10 @@
+import React from 'react';
 import Button from './Button';
 /**
- * 
- * @param {import('./Button').ButtonProps} props 
+ *
+ * @param {import('./Button').ButtonProps} props
  */
 
 export default function OutlinedButton(props) {
-    return <Button variant="outlined" {...props}/>
+  return <Button variant="outlined" {...props} />;
 }

@@ -85,7 +85,7 @@ function getDefaultIgnore() {
  * @param {string} content
  */
 function getFileImports(content) {
-  let regex = /(?<=import [A-z\s\{\},]+ from ')([^^()\[\]\{\}';\s\n]+)(?=')/g;
+  let regex = /(?<=import [A-z\s{},]+ from ')([^^()[]\{\}';\s\n]+)(?=')/g;
   // let matches = regex.exec(content);
   let imports = [];
   let matches = content.match(regex);
