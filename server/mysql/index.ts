@@ -1,8 +1,8 @@
-import { ConnectionConfig, connect } from 'mysqldriver';
+import { ConnectionConfig, connect, DatabaseDriver } from 'mysqldriver';
 
-export function connectDB() {
-  let port = process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3306;
-  let config: ConnectionConfig = {
+export function connectDB(): DatabaseDriver {
+  const port = process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3306;
+  const config: ConnectionConfig = {
     host: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
     user: process.env.DB_USERNAME,
