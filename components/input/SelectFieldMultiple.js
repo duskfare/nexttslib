@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 /**
- * @param {SelectFieldMultipleProps} props
+ * @param {SelectFieldMultipleProps<any>} props
  */
 export default function SelectFieldMultiple(props) {
   const {
@@ -56,5 +56,5 @@ export default function SelectFieldMultiple(props) {
  * @property {T[]} options
  * @property {T} value
  * @property {'outlined' | 'filled' | 'standard'} [variant]
- * @property {function(T[])} [onChange]
+ * @property {function(T[]): void} [onChange]
  */
