@@ -1,24 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FieldProps } from '../components/input/interfaces/FieldProps';
 export function useForm(options: FormOptions): [Form] {
   //Init the form state
-  let keys =
+  const keys =
     options && options.initialState ? Object.keys(options.initialState) : [];
-  let [formData, setFormData] = useState<FormData>(
+  const [formData, setFormData] = useState<FormData>(
     keys.reduce((state, key) => {
       state[key] = options ? options.initialState[key].value : null; //Init form data with null values
       return state;
     }, {})
   );
 
-  let [errors, setErrors] = useState<FormErrors>({});
+  const [errors, setErrors] = useState<FormErrors>({});
   function setFieldValue(fieldName: string, fieldvalue: any) {
-    let { validations } = options;
+    const { validations } = options;
     //Update form data
     formData[fieldName] = fieldvalue;
     //Update field errors
     if (validations) {
-      let validate = validations[fieldName];
+      const validate = validations[fieldName];
       if (validate) {
         errors[fieldName] = validate(getForm(), formData[fieldName]);
       }
@@ -47,16 +47,16 @@ export function useForm(options: FormOptions): [Form] {
    * @param fields
    */
   function validate(fields?: string[]) {
-    let errors = {};
+    const errors = {};
     if (!fields && options && options.validations) {
       fields = Object.keys(options.validations); //Validate all fields by default unless otherwise specified
     }
-    let validations = options.validations;
+    const validations = options.validations;
     if (validations) {
-      for (let key of fields) {
-        let validate = validations[key];
+      for (const key of fields) {
+        const validate = validations[key];
         if (validate) {
-          let error = validate(getForm(), formData[key]);
+          const error = validate(getForm(), formData[key]);
           errors[key] = error;
         }
       }
@@ -77,14 +77,14 @@ export function useForm(options: FormOptions): [Form] {
    */
   function getFields() {
     /** @type {Object<string, Field>} */
-    let fields = {};
-    for (let key in formData) {
-      let field = fields[key] || { value: null };
+    const fields = {};
+    for (const key in formData) {
+      const field = fields[key] || { value: null };
       field.value = formData[key];
       fields[key] = field;
     }
-    for (let key in errors) {
-      let field = fields[key] || { value: null };
+    for (const key in errors) {
+      const field = fields[key] || { value: null };
       field.errorText = errors[key];
       fields[key] = field;
     }
@@ -107,7 +107,7 @@ export function useForm(options: FormOptions): [Form] {
   }
 
   function getForm(): Form {
-    let form: Form = {
+    const form: Form = {
       handleChange,
       loadFormData,
       validate,
@@ -149,5 +149,3 @@ interface Field {
   value: any;
   errorText: string;
 }
-
-type FormState = { [key: string]: string };

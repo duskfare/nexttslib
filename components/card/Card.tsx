@@ -1,7 +1,5 @@
 import MUICard from '@material-ui/core/Card';
-import MUICardHeader from '@material-ui/core/CardHeader';
 import MUICardActions from '@material-ui/core/CardActions';
-import { makeStyles, StylesProvider } from '@material-ui/core/styles';
 import styles from './Card.module.css';
 import * as React from 'react';
 export default function Card(props: CardProps) {

@@ -13,15 +13,15 @@ export default class TextField extends React.Component<
     };
   }
   isPropsValueUsed() {
-    let keys = Object.keys(this.props);
+    const keys = Object.keys(this.props);
     if (keys.includes('value')) {
       return true;
     }
     return false;
   }
   async onChange(e) {
-    let onChange = this.props.onChange || (() => {});
-    let value = e.target.value;
+    const onChange = this.props.onChange || (() => {});
+    const value = e.target.value;
     if (!this.isPropsValueUsed()) {
       await new Promise((resolve, reject) => {
         this.setState({ value }, () => resolve());
@@ -30,8 +30,8 @@ export default class TextField extends React.Component<
     await onChange(value);
   }
   render() {
-    let props = this.props;
-    let {
+    const props = this.props;
+    const {
       label,
       type,
       value: propValue,
@@ -42,10 +42,10 @@ export default class TextField extends React.Component<
       disabled,
       inject,
     } = props;
-    let { value: stateValue } = this.state;
-    let value = (this.isPropsValueUsed() ? propValue : stateValue) || '';
-    let error = errorText ? true : false;
-    let default_styles = getDefaultStyles();
+    const { value: stateValue } = this.state;
+    const value = (this.isPropsValueUsed() ? propValue : stateValue) || '';
+    const error = errorText ? true : false;
+    const default_styles = getDefaultStyles();
 
     return (
       <MUITextField
@@ -75,7 +75,7 @@ function getDefaultStyles() {
   /**
    * @type {React.CSSProperties}
    */
-  let style = {
+  const style = {
     marginTop: '1em',
   };
   return style;

@@ -1,3 +1,4 @@
+import React from 'react';
 import Button, { ButtonProps } from './Button';
 export function SubmitButton(props: ButtonProps) {
   return (
@@ -10,9 +11,9 @@ export function SubmitButton(props: ButtonProps) {
   );
 }
 
-function withPreventDefault(onClick) {
-  return (...params) => {
-    let e = params[0];
+function withPreventDefault(onClick: (...args: any[]) => void) {
+  return (...params: any[]) => {
+    const e = params[0];
     e.preventDefault();
     if (typeof onClick === 'function') {
       onClick(...params);
