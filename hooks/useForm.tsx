@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { FieldProps } from '../components/input/interfaces/FieldProps';
+import { useState } from "react";
+import { FieldProps } from "../components/input/interfaces/FieldProps";
 export function useForm(options: FormOptions): [Form] {
   //Init the form state
   const keys =
     options && options.initialState ? Object.keys(options.initialState) : [];
   const [formData, setFormData] = useState<FormData>(
-    keys.reduce((state, key) => {
-      state[key] = options ? options.initialState[key].value : null; //Init form data with null values
+    keys.reduce((state: Record<string, any>, key) => {
+      state[key] = options ? options.initialState?.[key].value : null; //Init form data with null values
       return state;
     }, {})
   );
@@ -47,9 +47,12 @@ export function useForm(options: FormOptions): [Form] {
    * @param fields
    */
   function validate(fields?: string[]) {
-    const errors = {};
+    const errors: Record<string, any> = {};
     if (!fields && options && options.validations) {
       fields = Object.keys(options.validations); //Validate all fields by default unless otherwise specified
+    }
+    if (!fields) {
+      fields = [];
     }
     const validations = options.validations;
     if (validations) {
@@ -77,7 +80,7 @@ export function useForm(options: FormOptions): [Form] {
    */
   function getFields() {
     /** @type {Object<string, Field>} */
-    const fields = {};
+    const fields: Record<string, any> = {};
     for (const key in formData) {
       const field = fields[key] || { value: null };
       field.value = formData[key];

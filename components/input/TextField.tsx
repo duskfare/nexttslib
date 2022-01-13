@@ -1,29 +1,29 @@
-import * as React from 'react';
-import MUITextField from '@material-ui/core/TextField';
-import { FieldProps } from './interfaces/FieldProps';
-import { HTMLAutocompleteTypes } from './interfaces/HTMLAutocompleteTypes';
+import * as React from "react";
+import MUITextField from "@material-ui/core/TextField";
+import { FieldProps } from "./interfaces/FieldProps";
+import { HTMLAutocompleteTypes } from "./interfaces/HTMLAutocompleteTypes";
 export default class TextField extends React.Component<
   TextFieldProps,
   { value: any }
 > {
-  constructor(props) {
+  constructor(props: TextFieldProps) {
     super(props);
     this.state = {
-      value: '',
+      value: "",
     };
   }
   isPropsValueUsed() {
     const keys = Object.keys(this.props);
-    if (keys.includes('value')) {
+    if (keys.includes("value")) {
       return true;
     }
     return false;
   }
-  async onChange(e) {
+  async onChange(e: any) {
     const onChange = this.props.onChange || (() => {});
     const value = e.target.value;
     if (!this.isPropsValueUsed()) {
-      await new Promise((resolve, reject) => {
+      await new Promise<void>((resolve, reject) => {
         this.setState({ value }, () => resolve());
       });
     }
@@ -35,7 +35,7 @@ export default class TextField extends React.Component<
       label,
       type,
       value: propValue,
-      errorText = '',
+      errorText = "",
       autocomplete,
       multiline,
       rows,
@@ -43,7 +43,7 @@ export default class TextField extends React.Component<
       inject,
     } = props;
     const { value: stateValue } = this.state;
-    const value = (this.isPropsValueUsed() ? propValue : stateValue) || '';
+    const value = (this.isPropsValueUsed() ? propValue : stateValue) || "";
     const error = errorText ? true : false;
     const default_styles = getDefaultStyles();
 
@@ -53,9 +53,9 @@ export default class TextField extends React.Component<
           props.style ? { ...default_styles, ...props.style } : default_styles
         }
         InputLabelProps={{
-          shrink: [null, undefined, ''].indexOf(value) > 0 ? false : true,
+          shrink: [null, undefined, ""].indexOf(value) > 0 ? false : true,
         }}
-        value={value == undefined || value == null ? '' : value}
+        value={value == undefined || value == null ? "" : value}
         error={error}
         label={label}
         onChange={this.onChange.bind(this)}
@@ -76,7 +76,7 @@ function getDefaultStyles() {
    * @type {React.CSSProperties}
    */
   const style = {
-    marginTop: '1em',
+    marginTop: "1em",
   };
   return style;
 }
